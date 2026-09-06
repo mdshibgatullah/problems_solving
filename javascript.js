@@ -18,21 +18,20 @@
 
 // sokol number serially sajanu
 
-// const numbers  = [3,5,7,1,8,0,3,56,4,86];
-// numbers.sort((a, b) => a-b) // discendng korte b-a
+// const numbers  = [4,5,1,9,8,4,0]
+// numbers.sort((a,b)=> a-b) // b-a dile discending akare asbe
 // console.log(numbers)
 
 
 // leap year check
 // function leap_year(year){
 //     if(year % 4 === 0 || ((year % 400 === 0 && year % 100 !== 0))){
-//         console.log(`${year} is leap year`)
+//         return 'This is leap year'
 //     }else{
-//         console.log(`${year} is not leap year`)
+//         return 'This is not leap year'
 //     }
 // }
-
-// leap_year(2028)
+// console.log(leap_year(2027))
 
 // ৪ দ্বারা বিভাজ্য হলে Leap Year,
 // কিন্তু ১০০ দ্বারা বিভাজ্য হলে Leap Year নয়,
