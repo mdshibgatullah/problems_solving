@@ -39,15 +39,14 @@
 
 
 // even or odd number
-
-// function number(num){
-//     if(num % 2 == 0) {
-//         console.log('Even')
+// function evenOrodd(num){
+//     if(num % 2 == 0){
+//         return 'Even'
 //     }else{
-//         console.log('odd')
+//         return 'Odd'
 //     }
 // }
-// number(10)
+// console.log(evenOrodd(4680))
 
 
 // power of number
@@ -72,24 +71,60 @@
 
 // Find biggest number
 
-// let numbers = [12,3,4,56,7,4,79,57];
-// console.log(Math.max(...numbers))
+// const number = [35,35,574,456,6784,467]
+// console.log(Math.max(...number))
 
-// function maxN(...numbers){
-//     return Math.max(...numbers)
+// function maxNum(...number){
+//     return Math.max(...number)
 // }
-// console.log(maxN(12,54,85))
+// console.log(maxNum(24,56,7,4))
 
 
 
 // array er all numbers jug kora 
-
-// let numbers = [23,4,56,74,789,23,]
-// let sum = 0;
+// let numbers = [23,57,46,467]
+// let sum = 0
 // for(i=0; i < numbers.length; i++){
 //     sum += numbers[i]
 // }
 // console.log(sum)
 
 
-// remove duplicate Number 
+// find a Number negative or positive 
+// const num = 10.90
+// if(num > 0){
+//     console.log('Positive')
+// }else{
+//     console.log('Negative')
+// }
+
+
+// Day cheker using switch 
+const dayNumber = 8;
+switch(dayNumber){
+    case 1:
+        console.log('Saturday');
+        break;
+    case 2:
+        console.log('Sunday');
+        break;
+    case 3:
+        console.log('Monday');
+        break;
+    case 4:
+        console.log('Tuesday');
+        break;
+    case 5:
+        console.log('Wednesday');
+        break;
+    case 6:
+        console.log('Thusday');
+        break;
+    case 7:
+        console.log('Friday');
+        break;
+    default: console.log("Invalid day number! Please enter a number between 1 and 7.")
+
+} 
+
+
