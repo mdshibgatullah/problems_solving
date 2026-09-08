@@ -70,7 +70,6 @@
 
 
 // Find biggest number
-
 // const number = [35,35,574,456,6784,467]
 // console.log(Math.max(...number))
 
@@ -100,7 +99,7 @@
 
 
 // Day cheker using switch 
-const dayNumber = 8;
+const dayNumber = 5;
 switch(dayNumber){
     case 1:
         console.log('Saturday');
@@ -128,3 +127,64 @@ switch(dayNumber){
 } 
 
 
+// print 1-100 
+// for (i=0; i <= 100; i++){
+//     console.log(i)
+// }
+
+
+// 1-100 jug 
+// let sum = 0;
+// for (i=0; i <= 100; i++){
+//     sum += i
+// }
+// console.log(sum)
+
+
+// multification 
+let number = 7;
+for(i=1; i <=10 ; i++){
+    console.log(`${number} x ${i} = ${number * i}`)
+}
+
+
+// greating funtion 
+function greate(name){
+    console.log(`Hello, ${name}`)
+}
+greate('Sifat')
+
+const student = {
+  name: "Sifat",
+  age: 22,
+  department: "CSE",
+  marks: 85
+};
+console.log(student)
+
+
+// second largest number ber kori
+// let numbers = [23,56,36,467,468]
+// let sortNum = numbers.sort((a,b)=> b-a)
+// console.log(sortNum[1])
+
+
+// second smallest number ber kori
+// let numbers = [23,56,36,467,468]
+// let sortNum = numbers.sort((a,b)=> a-b)
+// console.log(sortNum[1])
+
+
+// count even and odd number 
+
+let numbers = [24,74,46,25,96,457,46,89]
+let count = {even: 0, odd: 0}
+for(let num of numbers){
+    num % 2 == 0 ? count.even++ : count.odd++
+}
+console.log(count)
+
+
+const numb = [1, 2, 3, 2, 4, 5, 1, 6, 3];
+const removeDup = numb.filter((num, index)=> numb.indexOf(num) !==index)
+console.log(removeDup)
