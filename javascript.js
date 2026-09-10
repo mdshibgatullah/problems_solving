@@ -184,7 +184,22 @@ for(let num of numbers){
 }
 console.log(count)
 
+// remove duplicate number
+// const numb = [1, 2, 3, 2, 4, 5, 1, 6, 3];
+// let duplicate = numb.filter((num, index)=> numb.indexOf(num) !==index)
+// console.log(duplicate)
 
-const numb = [1, 2, 3, 2, 4, 5, 1, 6, 3];
-const removeDup = numb.filter((num, index)=> numb.indexOf(num) !==index)
-console.log(removeDup)
+// print all even number 
+// for(i=0; i < numb.length; i++){
+//     if(numb[i] % 2 === 0){
+//         console.log(numb[i])
+//     }
+// }
+
+const num = [1, 2, 3, 5, 6, 8];
+for(i= 0; i < num.length; i++){
+    if(num[i] !== i +1){
+        console.log(i +1)
+        break
+    }
+}
