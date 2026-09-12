@@ -203,3 +203,276 @@ for(i= 0; i < num.length; i++){
         break
     }
 }
+
+
+
+
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { FaArrowLeft, FaArrowRight, FaImage } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Layouts from './Layouts';
+import { apiUrl } from './http';
+import { usePosts } from '../context/PostsContext';
+
+const AllPost = () => {
+  const { posts, loading } = usePosts();
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 8;
+
+  const imageBaseUrl = apiUrl.replace('/api', '');
+
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const displayedPosts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+
+  return (
+    <Layouts>
+      <section className="py-5">
+        <Container>
+          <Row className="g-4">
+            <Col lg={8}>
+              <Card className="border rounded-4 p-4 bg-white shadow-sm">
+                <h4 className="fw-bold mb-4 text-dark border-bottom pb-3">All Posts</h4>
+
+                {loading ? (
+                  <div className="text-center py-5"><Spinner animation="border" variant="primary" /></div>
+                ) : displayedPosts.length === 0 ? (
+                  <div className="text-center py-5 text-muted">No posts found.</div>
+                ) : (
+                  <div className="d-flex flex-column gap-4">
+                    {displayedPosts.map((article) => {
+                      const categoryName = typeof article.category === 'object' 
+                        ? (article.category?.name || 'General') 
+                        : (article.category || article.category_name || 'General');
+
+                      const postDate = article.created_at || article.createdAt || article.date 
+                        ? new Date(article.created_at || article.createdAt || article.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })
+                        : 'Recently';
+
+                      const rawDescription = article.description || article.desc || article.content || '';
+                      const cleanDescription = rawDescription.replace(/<[^>]*>?/gm, '').trim();
+
+                      return (
+                        <div key={article.id} className="pb-4 border-bottom">
+                          <Row className="g-3 align-items-center">
+                            <Col md={4}>
+                              <Link to={`/post/${article.id}`} className="d-block overflow-hidden rounded-3">
+                                {article.image ? (
+                                  <img 
+                                    src={`${imageBaseUrl}/${article.image}`} 
+                                    alt={article.title} 
+                                    className="w-100 rounded-3 object-fit-cover" 
+                                    style={{ height: '150px' }} 
+                                  />
+                                ) : (
+                                  <div 
+                                    className="bg-light rounded-3 d-flex align-items-center justify-content-center text-muted border" 
+                                    style={{ height: '150px' }}
+                                  >
+                                    <FaImage size={30} />
+                                  </div>
+                                )}
+                              </Link>
+                            </Col>
+
+                            <Col md={8}>
+                              <span
+                                className="badge bg-light text-primary border fw-bold mb-2 text-capitalize"
+                                style={{ fontSize: '11px', letterSpacing: '0.5px' }}
+                              >
+                                {categoryName}
+                              </span>
+
+                              <h5 className="fw-bold text-dark mb-2 style-title cursor-pointer">
+                                <Link to={`/post/${article.id}`} className="text-decoration-none text-dark">
+                                  {article.title}
+                                </Link>
+                              </h5>
+
+                              <p 
+                                className="text-muted small mb-2"
+                                style={{
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis'
+                                }}
+                              >
+                                {cleanDescription}
+                              </p>
+
+                              <small className="text-muted fw-medium" style={{ fontSize: '12px' }}>
+                                {postDate}
+                              </small>
+                            </Col>
+                          </Row>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {!loading && totalPages > 1 && (
+                  <div className="mt-4 pt-2 d-flex justify-content-between align-items-center border-top">
+                    <Button variant="outline-primary" onClick={() => setCurrentPage(p => p - 1)} disabled={currentPage === 1}>
+                      <FaArrowLeft /> Previous
+                    </Button>
+                    <span>Page {currentPage} of {totalPages}</span>
+                    <Button variant="primary" onClick={() => setCurrentPage(p => p + 1)} disabled={currentPage === totalPages}>
+                      Next <FaArrowRight />
+                    </Button>
+                  </div>
+                )}
+              </Card>
+            </Col>
+
+            <Sidebar />
+          </Row>
+        </Container>
+      </section>
+    </Layouts>
+  );
+};
+
+export default AllPost;
+
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { FaArrowLeft, FaArrowRight, FaImage } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Layouts from './Layouts';
+import { apiUrl } from './http';
+import { usePosts } from '../context/PostsContext';
+
+const AllPost = () => {
+  const { posts, loading } = usePosts();
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 8;
+
+  const imageBaseUrl = apiUrl.replace('/api', '');
+
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const displayedPosts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+
+  return (
+    <Layouts>
+      <section className="py-5">
+        <Container>
+          <Row className="g-4">
+            <Col lg={8}>
+              <Card className="border rounded-4 p-4 bg-white shadow-sm">
+                <h4 className="fw-bold mb-4 text-dark border-bottom pb-3">All Posts</h4>
+
+                {loading ? (
+                  <div className="text-center py-5"><Spinner animation="border" variant="primary" /></div>
+                ) : displayedPosts.length === 0 ? (
+                  <div className="text-center py-5 text-muted">No posts found.</div>
+                ) : (
+                  <div className="d-flex flex-column gap-4">
+                    {displayedPosts.map((article) => {
+                      const categoryName = typeof article.category === 'object' 
+                        ? (article.category?.name || 'General') 
+                        : (article.category || article.category_name || 'General');
+
+                      const postDate = article.created_at || article.createdAt || article.date 
+                        ? new Date(article.created_at || article.createdAt || article.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })
+                        : 'Recently';
+
+                      const rawDescription = article.description || article.desc || article.content || '';
+                      const cleanDescription = rawDescription.replace(/<[^>]*>?/gm, '').trim();
+
+                      return (
+                        <div key={article.id} className="pb-4 border-bottom">
+                          <Row className="g-3 align-items-center">
+                            <Col md={4}>
+                              <Link to={`/post/${article.id}`} className="d-block overflow-hidden rounded-3">
+                                {article.image ? (
+                                  <img 
+                                    src={`${imageBaseUrl}/${article.image}`} 
+                                    alt={article.title} 
+                                    className="w-100 rounded-3 object-fit-cover" 
+                                    style={{ height: '150px' }} 
+                                  />
+                                ) : (
+                                  <div 
+                                    className="bg-light rounded-3 d-flex align-items-center justify-content-center text-muted border" 
+                                    style={{ height: '150px' }}
+                                  >
+                                    <FaImage size={30} />
+                                  </div>
+                                )}
+                              </Link>
+                            </Col>
+
+                            <Col md={8}>
+                              <span
+                                className="badge bg-light text-primary border fw-bold mb-2 text-capitalize"
+                                style={{ fontSize: '11px', letterSpacing: '0.5px' }}
+                              >
+                                {categoryName}
+                              </span>
+
+                              <h5 className="fw-bold text-dark mb-2 style-title cursor-pointer">
+                                <Link to={`/post/${article.id}`} className="text-decoration-none text-dark">
+                                  {article.title}
+                                </Link>
+                              </h5>
+
+                              <p 
+                                className="text-muted small mb-2"
+                                style={{
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis'
+                                }}
+                              >
+                                {cleanDescription}
+                              </p>
+
+                              <small className="text-muted fw-medium" style={{ fontSize: '12px' }}>
+                                {postDate}
+                              </small>
+                            </Col>
+                          </Row>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {!loading && totalPages > 1 && (
+                  <div className="mt-4 pt-2 d-flex justify-content-between align-items-center border-top">
+                    <Button variant="outline-primary" onClick={() => setCurrentPage(p => p - 1)} disabled={currentPage === 1}>
+                      <FaArrowLeft /> Previous
+                    </Button>
+                    <span>Page {currentPage} of {totalPages}</span>
+                    <Button variant="primary" onClick={() => setCurrentPage(p => p + 1)} disabled={currentPage === totalPages}>
+                      Next <FaArrowRight />
+                    </Button>
+                  </div>
+                )}
+              </Card>
+            </Col>
+
+            <Sidebar />
+          </Row>
+        </Container>
+      </section>
+    </Layouts>
+  );
+};
+
+export default AllPost;
